@@ -7,8 +7,8 @@ highlighter: null
 markdown: kramdown
 extensions: [fenced_code_blocks]
 excerpt_separator: "<!--more-->"
-url: https://heliumjk.github.io
-baseurl: "/heliumjk.github.io"
+url: https://alpenuga.github.io
+baseurl: "/alpenuga.github.io"
 # Themes are encouraged to use these universal variables
 # so be sure to set them if your theme uses them.
 #
@@ -21,10 +21,10 @@ google_ad_client: ca-pub-9204963049240271
 post_limit: 5
 
 
-title : Helium Jekyll
-tagline: Bootstrap 4 UI kit for jekyll
+title : KLASS
+tagline: bolajon furniture
 author : 
-  name : Antonio Trento
+  name : Klass
   site: https://lantoniotrento.github.io
   description : I&#39;m a web master interested in communication applied to web marketing.
   image : social-image.png
