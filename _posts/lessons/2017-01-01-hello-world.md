@@ -1,21 +1,29 @@
 ---
+title: Hello World
+date: 2017-01-01 00:00:00 Z
+categories:
+- lessons
+tags:
+- intro
+- beginner
+- jekyll
+- tutorial
 layout: post
-category : lessons
-tagline: "Hello world post on helium jekyll"
-tags : [intro, beginner, jekyll, tutorial]
-img : helloworld.jpg
-img-mobile : 
-img2 : 
-img3 : 
-author : Antonio Trento
-title2 : 
-title3 : 
+tagline: Hello world post on helium jekyll
+img: helloworld.jpg
+img-mobile: 
+img2: 
+img3: 
+author: Antonio Trento
+title2: 
+title3: 
 css: 
 js: 
 bgcolor: ff5a71
 keywords: helium, html, css, landing page, jekyll, ruby, web marketing, advertising
 canonical: https://heliumjk.github.io
 ---
+
 {% include JB/setup %}
 Hello world! Is the first post on helium jekyll
 <!--more-->

@@ -1,21 +1,29 @@
 ---
+title: Bootstrap 4 Components On Fullit
+date: 2017-03-19 00:00:00 Z
+categories:
+- lessons
+tags:
+- bootstrap
+- example
+- jekyll
+- components
 layout: post
-category : lessons
-tagline: "Some elements for fullit from bootstrap 4"
-tags : [bootstrap, example, jekyll, components]
-img : 3.jpg
-img-mobile : 3-mobile.jpg
-img2 : 
-img3 : 
-author : Antonio Trento
-title2 : New FullIt Theme
-title3 : Created for jekyll
+tagline: Some elements for fullit from bootstrap 4
+img: 3.jpg
+img-mobile: 3-mobile.jpg
+img2: 
+img3: 
+author: Antonio Trento
+title2: New FullIt Theme
+title3: Created for jekyll
 css: 
 js: 
 bgcolor: ff5a71
 keywords: fullit, javascript, css, html, bootstrap, framework
 canonical: https://fullit.github.io
 ---
+
 {% include JB/setup %}
 
 ## Cards

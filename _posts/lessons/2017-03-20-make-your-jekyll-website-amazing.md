@@ -1,21 +1,28 @@
 ---
+title: Make Your Jekyll Website Amazing
+date: 2017-03-20 00:00:00 Z
+categories:
+- lessons
+tags:
+- bootstrap 4
+- web desing
+- jekyll
 layout: post
-category : lessons
-tagline: "Using heliumjk.github.io"
-tags : [bootstrap 4, web desing, jekyll]
-img : helium-jekyll.jpg
-img-mobile : 
-img2 : 
-img3 : 
-author : Antonio Trento
-title2 : Improve the desing of your blog
-title3 : Make it a full of slides
+tagline: Using heliumjk.github.io
+img: helium-jekyll.jpg
+img-mobile: 
+img2: 
+img3: 
+author: Antonio Trento
+title2: Improve the desing of your blog
+title3: Make it a full of slides
 css: 
 js: 
 bgcolor: ff5a71
 keywords: helium, web desing, css, html, bootstrap 4
 canonical: https://fullit.github.io
 ---
+
 {% include JB/setup %}
 
 Jekyll can give you the possibility to make awesome websites in minutes.

@@ -1,21 +1,26 @@
 ---
+title: Helium Theme Syntax Highlight Example
+date: 2017-02-15 00:00:00 Z
+categories:
+- lessons
+tags:
+- jekyll
+- code
 layout: post
-category : lessons
-tagline: "Example how post on Jekyll Helium"
-tags : [jekyll, code]
-img : syntax-hightlight.jpg
-img2 : 
-img3 : 
-author : Antonio Trento
-title2 : 
-title3 : 
+tagline: Example how post on Jekyll Helium
+img: syntax-hightlight.jpg
+img2: 
+img3: 
+author: Antonio Trento
+title2: 
+title3: 
 css: 
 js: 
 bgcolor: ff5a71
 keywords: helium, html, css, landing page, jekyll, ruby, web marketing, advertising
 canonical: https://fullit.github.io
-
 ---
+
 {% include JB/setup %}
 
 An example post about code insertion into posts.

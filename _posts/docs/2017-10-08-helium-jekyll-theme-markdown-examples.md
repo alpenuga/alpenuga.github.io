@@ -1,21 +1,27 @@
 ---
+title: Helium Jekyll Theme Markdown Examples
+date: 2017-10-08 00:00:00 Z
+categories:
+- docs
+tags:
+- jekyll
+- code
+- markdown
 layout: post
-category : docs
-tagline: "Example helium post in markdown and html classes"
-tags : [jekyll, code, markdown]
-img : markdown-samples.jpg
-img2 : 
-img3 : 
-author : Antonio Trento
-title2 : 
-title3 : 
+tagline: Example helium post in markdown and html classes
+img: markdown-samples.jpg
+img2: 
+img3: 
+author: Antonio Trento
+title2: 
+title3: 
 css: 
 js: 
 bgcolor: 
 keywords: html, css, markdown, jekyll, docs, jekyllthemes, theme
 canonical: https://fullit.github.io
-
 ---
+
 {% include JB/setup %}
 Markdown samples usefull when you start write your blog 🎉 🎆.
 
