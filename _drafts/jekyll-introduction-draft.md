@@ -1,6 +1,6 @@
 ---
 title: Jekyll Introduction Draft
-date: 2020-10-26 02:02:08.188000000 Z
+date: 2020-10-26 02:02:08 Z
 categories:
 - lessons
 tags:
