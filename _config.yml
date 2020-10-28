@@ -32,15 +32,15 @@ author:
   site: https://klassbolajon.ga
   description: I&#39;m a web master interested in communication applied to web marketing.
   image: social-image.png
-  email: lantoniotrento@gmail.com
-  github: antoniotrento
-  twitter: lantoniotrento
-  facebook: lantoniotrento
-  linkedin: antoniotrento
-  instagram: lantoniotrento
-  pinterest: antoniotrento
+  email: shop@eklass.ml
+  github: alpenuga
+  twitter: 
+  facebook: Klass.uz
+  linkedin: 
+  instagram: 
+  pinterest: 
   feedburner: 
-twitter_username: lantoniotrento
+twitter_username: 
 production_url: https://klassbolajon.ga
 JB:
   version: 0.3.0
@@ -52,8 +52,8 @@ JB:
   atom_path: "/atom.xml"
   rss_path: "/rss.xml"
   comments:
-    provider: disqus
-    disqus:
+    provider: facebook
+    facebook:
       short_name: jeky-new-age
       num_posts: 5
       width: 580
