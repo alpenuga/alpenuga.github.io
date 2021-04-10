@@ -20,8 +20,8 @@ markdown: kramdown
 extensions:
 - fenced_code_blocks
 excerpt_separator: "<!--more-->"
-url: https://klassbolajon.ga
-baseurl: "/klassbolajon.ga"
+url: https://alpenuga.github.io
+baseurl: "/alpenuga.github.io"
 data-ad-slot: 2973388149
 data-ad-client: ca-pub-9204963049240271
 google_ad_client: ca-pub-9204963049240271
@@ -29,7 +29,7 @@ post_limit: 5
 tagline: bolajon furniture
 author:
   name: Klass
-  site: https://klassbolajon.ga
+  site: https://alpenuga.github.io
   description: I&#39;m a web master interested in communication applied to web marketing.
   image: social-image.png
   email: shop@eklass.ml
@@ -41,10 +41,10 @@ author:
   pinterest: 
   feedburner: 
 twitter_username: 
-production_url: https://klassbolajon.ga
+production_url: https://alpenuga.github.io
 JB:
   version: 0.3.0
-  BASE_PATH: https://klassbolajon.ga
+  BASE_PATH: https://alpenuga.github.io
   ASSET_PATH: https://heliumjk.github.io/assets/themes/bootstrap
   archive_path: "/archive.html"
   categories_path: "/categories.html"
