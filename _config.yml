@@ -22,22 +22,22 @@ extensions:
 excerpt_separator: "<!--more-->"
 url: https://alpenuga.github.io
 baseurl: "/alpenuga.github.io"
-data-ad-slot: 2973388149
-data-ad-client: ca-pub-9204963049240271
-google_ad_client: ca-pub-9204963049240271
+data-ad-slot: # 2973388149
+data-ad-client: # ca-pub-9204963049240271
+google_ad_client: # ca-pub-9204963049240271
 post_limit: 5
 tagline: bolajon furniture
 author:
   name: Klass
   site: https://alpenuga.github.io
-  description: I&#39;m a web master interested in communication applied to web marketing.
+  description: Мебель для детской, диваны, столы и стулья, мебель на заказ.
   image: social-image.png
   email: shop@eklass.ml
   github: alpenuga
   twitter: 
-  facebook: Klass.uz
+  facebook: klass.uz
   linkedin: 
-  instagram: 
+  instagram: klassbolajon
   pinterest: 
   feedburner: 
 twitter_username: 
@@ -54,14 +54,14 @@ JB:
   comments:
     provider: facebook
     facebook:
-      short_name: jeky-new-age
+      short_name: klass.uz
       num_posts: 5
       width: 580
       colorscheme: light
   analytics:
     provider: google
     google:
-      tracking_id: UA-94080000-1
+      tracking_id: # UA-94080000-1
     getclicky:
       site_id: 
     mixpanel:
