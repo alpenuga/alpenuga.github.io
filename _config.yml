@@ -45,7 +45,7 @@ production_url: https://alpenuga.github.io
 JB:
   version: 0.3.0
   BASE_PATH: https://alpenuga.github.io
-  ASSET_PATH: https://heliumjk.github.io/assets/themes/bootstrap
+  ASSET_PATH: https://alpenuga.github.io/assets/themes/bootstrap
   archive_path: "/archive.html"
   categories_path: "/categories.html"
   tags_path: "/tags.html"
