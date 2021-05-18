@@ -2,17 +2,17 @@
       <footer class="default-footer text-center">
         <div class="container">
           <img class="mb-40 footer-logo" src="{{ BASE_PATH }}/assets/images/logo-2.png" alt="">
-          <span class="social">
+           <span class="copy-right dis-blk">&copy; {{ site.time | date: '%Y' }} {{ site.name | default: site.title }}. 
+          <i class="fa fa-heart cyan-color"></i> by <a href="https://alpenuga.github.io">Alpenuga</a>
+         </span>
+         <span class="social">
                   {% if site.author.facebook %}<a href="https://www.facebook.com/{{ site.author.facebook }}/"><i class="fa fa-2x fa-facebook"></i></a>{% endif %}
                   {% if site.author.twitter %}<a href="https://twitter.com/{{ site.author.twitter }}"><i class="fa fa-2x fa-twitter"></i></a>{% endif %}
                   {% if site.author.linkedin %}<a href="https://www.linkedin.com/in/{{ site.author.linkedin }}/"><i class="fa fa-2x fa-linkedin"></i></a>{% endif %}
                   {% if site.author.instagram %}<a href="https://www.instagram.com/{{ site.author.instagram }}/"><i class="fa fa-2x fa-instagram"></i></a>{% endif %}                            
               	
           </span>
-          <span class="copy-right dis-blk">&copy; {{ site.time | date: '%Y' }} {{ site.name | default: site.title }}. 
-          <i class="fa fa-heart cyan-color"></i> by <a href="https://alpenuga.github.io">Alpenuga</a>
-          
-          </span>
+
         </div>
  
      </footer>
