@@ -183,18 +183,45 @@ canonical: https://heliumjk.github.io
           </div>
           
         </div>
- <!-- моя форма-->
+ 
+<!-- моя форма-->
+
         <div class="row">
           <div class="col-md-8">
             <h3 class="title-head text-center">Get in touch</h3>
             <form action="https://formspree.io/f/myylezrw" method="POST">
-            <label>Ваш email:<input type="email" name="_replyto"></label>
-            <label>Ваше сообщение:<textarea name="message"></textarea></label>
-
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <i class="contact-icon fa fa-user"></i>
+                    <input type="text" class="form-control" id="name" placeholder="Full Name" required data-error="Please enter your name">
+                    <div class="help-block with-errors"></div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <i class="contact-icon fa fa-envelope-o"></i>
+                    <input type="email" class="form-control" id="email" placeholder="Email" required data-error="Please enter your email">
+                    <div class="help-block with-errors"></div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <i class="contact-icon fa fa-pencil-square-o"></i>
+                    <input type="text" class="form-control" id="subject" placeholder="Subject" required data-error="Please enter your Subject">
+                    <div class="help-block with-errors"></div>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <textarea id="message" rows="8" placeholder="Message" required data-error="Пожалуйста ведите своё сообщение"></textarea>
+                    <div class="help-block with-errors"></div>
+                  </div>
       <!-- your other form fields go here -->
 
          <button type="submit" id="form-submit" class="btn btn-common btn-form-submit">Отправить</button>
-       </form> 
+         <div id="msgSubmit" class="h3 text-center hidden"></div>
+         <div class="clearfix"></div>
+      </form> 
       </div>
     </div>
 
