@@ -8,6 +8,7 @@ tags:
 - code
 - markdown
 layout: post
+group: navigation
 tagline: Example helium post in markdown and html classes
 img: markdown-samples.jpg
 img2: 
