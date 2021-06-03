@@ -8,6 +8,9 @@ collections:
   uploads:
     title: Uploads
     output: true
+  dietskiie:
+    title: Детские
+    output: true
 permalink: "/:categories/:year/:month/:day/:title"
 exclude:
 - ".rvmrc"
