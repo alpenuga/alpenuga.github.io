@@ -1,6 +1,6 @@
 ---
 title: KLASS
-timezone: UTC
+timezone: Asia/Tashkent
 collections:
   posts:
     title: Posts
@@ -71,6 +71,6 @@ JB:
       token: _MIXPANEL_TOKEN_
     piwik:
       baseURL: myserver.tld/piwik
-      idsite: '1'
+      idsite: 1
   sharing:
     provider: false
