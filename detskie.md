@@ -1,5 +1,6 @@
 ---
-layout: page
-title: "A list of animals"
+title: A list of animals
 permalink: "/detskie/"
+layout: page
 ---
+
