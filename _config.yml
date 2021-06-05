@@ -8,7 +8,7 @@ collections:
   uploads:
     title: Uploads
     output: true
-  dietskiie:
+  detskie:
     title: Детские
     output: true
 permalink: "/:categories/:year/:month/:day/:title"
