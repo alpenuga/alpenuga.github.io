@@ -11,7 +11,7 @@ collections:
   detskie:
     title: Детские
     output: true
-permalink: "/:categories/:year/:month/:day/:title"
+permalink: "/:categories/:year/:month/:day/:title/detskie/:name"
 exclude:
 - ".rvmrc"
 - ".rbenv-version"
