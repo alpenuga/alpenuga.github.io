@@ -34,6 +34,27 @@ function productDesc(p) { return pick(lang, p.desc_ru, p.desc_uz); }
 function catTitle(c) { return pick(lang, c.name, c.name_uz); }
 function storeTitle() { return pick(lang, data.name, data.name_uz); }
 
+const ICONS = {
+  pin: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-5.4 7-11a7 7 0 1 0-14 0c0 5.6 7 11 7 11Z"/><circle cx="12" cy="10" r="2.2"/></svg>',
+  clock: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>',
+  phone: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3.8h3.1l1.2 3.4-1.9 1.2a12.8 12.8 0 0 0 5.2 5.2l1.2-1.9 3.4 1.2V16c0 1.1-.9 1.9-2 1.8C8.8 16.7 6.4 11.5 5.4 5.8 5.3 4.7 6 3.8 7 3.8Z"/></svg>',
+  tg: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 4.6 3.7 11.1c-1.2.5-1.2 1.5-.2 1.9l4.3 1.3 1.7 5.1c.2.7.1 1 .8 1 .5 0 .7-.2 1-.6l2.4-3.2 4.6 3.4c.9.5 1.5.2 1.7-.8l2.8-13.2c.3-1.2-.4-1.8-1.3-1.4Z"/></svg>'
+};
+
+function icon(name) {
+  return `<span class="ico">${ICONS[name] || ''}</span>`;
+}
+
+function footerRow(name, text, href) {
+  if (!text) return '';
+  const body = `${icon(name)}<span>${esc(text)}</span>`;
+  if (href) {
+    const extra = href.startsWith('http') ? ' target="_blank" rel="noopener"' : '';
+    return `<a class="footer-item" href="${esc(href)}"${extra}>${body}</a>`;
+  }
+  return `<p class="footer-item">${body}</p>`;
+}
+
 function applyChrome() {
   const title = storeTitle();
   els.storeName.textContent = title;
@@ -48,9 +69,9 @@ function applyChrome() {
   els.heroMedia.style.backgroundImage = hero
     ? `var(--hero-overlay), url("${hero}")`
     : 'var(--hero-overlay), linear-gradient(135deg, #3d3229, #1c1b19)';
-  const phone = contacts().phone;
+    const phone = contacts().phone;
   if (phone) {
-    els.headerPhone.textContent = phone;
+    els.headerPhone.innerHTML = icon('phone') + '<span>' + esc(phone) + '</span>';
     els.headerPhone.href = phoneHref(phone);
     els.headerPhone.classList.remove('hidden');
   } else {
@@ -66,15 +87,19 @@ function applyChrome() {
 
 function renderFooter() {
   const c = contacts();
-  const bits = [
-    c.phone,
-    c.telegram,
-    pick(lang, c.address, c.address_uz),
-    pick(lang, c.hours, c.hours_uz)
-  ].filter(Boolean);
+  const address = pick(lang, c.address, c.address_uz);
+  const hours = pick(lang, c.hours, c.hours_uz);
+  const left = footerRow('pin', address) + footerRow('clock', hours);
+  const tgLabel = (c.telegram || '').trim();
+  const right = footerRow('phone', c.phone, phoneHref(c.phone))
+    + footerRow('tg', tgLabel, telegramUrl(c.telegram));
+
   els.footer.innerHTML = `
     <h3>${esc(storeTitle())}</h3>
-    <p class="footer-meta">${esc(bits.join(' · '))}</p>
+    <div class="footer-cols">
+      <div class="footer-col">${left}</div>
+      <div class="footer-col footer-col-right">${right}</div>
+    </div>
     <p class="footer-note">${esc(t().prices)}</p>
     <p class="footer-copy">${esc(copyrightLine(storeTitle(), c.foundedYear))}</p>
   `;
@@ -92,14 +117,15 @@ function actionLinks(p, asButtons) {
   const c = contacts();
   const tg = telegramUrl(c.telegram);
   const tel = phoneHref(c.phone);
-  const tag = asButtons ? 'button' : 'a';
   let html = '';
-  if (tg) html += asButtons
-    ? `<a class="btn" href="${esc(tg)}" target="_blank" rel="noopener">${esc(t().write)}</a>`
-    : `<a href="${esc(tg)}" target="_blank" rel="noopener" data-stop="1">${esc(t().write)}</a>`;
-  if (tel) html += asButtons
-    ? `<a class="btn btn-ghost" href="${esc(tel)}">${esc(t().call)}</a>`
-    : `<a href="${esc(tel)}" data-stop="1">${esc(t().call)}</a>`;
+  if (tg) {
+    const cls = asButtons ? 'btn' : '';
+    html += `<a class="${cls}" href="${esc(tg)}" target="_blank" rel="noopener" data-stop="1">${icon('tg')} ${esc(t().write)}</a>`;
+  }
+  if (tel) {
+    const cls = asButtons ? 'btn btn-ghost' : '';
+    html += `<a class="${cls}" href="${esc(tel)}" data-stop="1">${icon('phone')} ${esc(t().call)}</a>`;
+  }
   return html;
 }
 
