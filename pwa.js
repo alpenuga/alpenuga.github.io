@@ -7,14 +7,27 @@ const adminStatus = document.getElementById('adminStatus');
 function showPanel() {
   loginEl.classList.add('hidden');
   panelEl.classList.remove('hidden');
-  document.getElementById('newName').value = data.name || '';
-  document.getElementById('newNameUz').value = data.name_uz || '';
+  fillShopForm();
   renderAdmin();
 }
 
 function showLogin() {
   loginEl.classList.remove('hidden');
   panelEl.classList.add('hidden');
+}
+
+function fillShopForm() {
+  const c = data.contacts || defaultContacts();
+  document.getElementById('newName').value = data.name || '';
+  document.getElementById('newNameUz').value = data.name_uz || '';
+  document.getElementById('heroImg').value = c.heroImg || '';
+  document.getElementById('phone').value = c.phone || '';
+  document.getElementById('telegram').value = c.telegram || '';
+  document.getElementById('address').value = c.address || '';
+  document.getElementById('addressUz').value = c.address_uz || '';
+  document.getElementById('hours').value = c.hours || '';
+  document.getElementById('hoursUz').value = c.hours_uz || '';
+  document.getElementById('foundedYear').value = c.foundedYear || 2024;
 }
 
 function previewFromUrl(url) {
@@ -30,7 +43,8 @@ function previewFromUrl(url) {
 async function persist() {
   adminStatus.textContent = 'Сохранение…';
   await saveStore(data);
-  adminStatus.textContent = 'Сохранено в Firebase. Витрина обновится сама.';
+  adminStatus.textContent = 'Сохранено в Firebase.';
+  renderAdminFooter();
 }
 
 function resetProductForm() {
@@ -57,14 +71,12 @@ function fillCatSelect(selectedId) {
 }
 
 async function login() {
-  if (!initFirebase()) {
-    alert('Проверьте firebase-config.js');
-    return;
-  }
-  const email = document.getElementById('email').value.trim();
-  const pass = document.getElementById('pass').value;
+  if (!initFirebase()) return alert('Проверьте firebase-config.js');
   try {
-    await firebase.auth().signInWithEmailAndPassword(email, pass);
+    await firebase.auth().signInWithEmailAndPassword(
+      document.getElementById('email').value.trim(),
+      document.getElementById('pass').value
+    );
   } catch (err) {
     alert('Ошибка входа: ' + err.message);
   }
@@ -73,6 +85,23 @@ async function login() {
 async function saveName() {
   data.name = document.getElementById('newName').value.trim() || 'KLASS мебель';
   data.name_uz = document.getElementById('newNameUz').value.trim();
+  data.contacts = data.contacts || defaultContacts();
+  data.contacts.heroImg = document.getElementById('heroImg').value.trim();
+  await persist();
+}
+
+async function saveContacts() {
+  data.contacts = {
+    ...(data.contacts || defaultContacts()),
+    phone: document.getElementById('phone').value.trim(),
+    telegram: document.getElementById('telegram').value.trim(),
+    address: document.getElementById('address').value.trim(),
+    address_uz: document.getElementById('addressUz').value.trim(),
+    hours: document.getElementById('hours').value.trim(),
+    hours_uz: document.getElementById('hoursUz').value.trim(),
+    foundedYear: Number(document.getElementById('foundedYear').value) || 2024,
+    heroImg: document.getElementById('heroImg').value.trim() || (data.contacts && data.contacts.heroImg) || ''
+  };
   await persist();
 }
 
@@ -91,14 +120,11 @@ async function saveProd() {
   const catId = Number(document.getElementById('catSelect').value);
   const cat = data.categories.find((c) => c.id === catId);
   if (!cat) return alert('Сначала добавьте категорию');
-
   const nameRu = document.getElementById('prodNameRu').value.trim();
   if (!nameRu) return alert('Укажите название на русском');
-
   const id = document.getElementById('editProdId').value
     ? Number(document.getElementById('editProdId').value)
     : Date.now();
-
   const payload = {
     id,
     name_ru: nameRu,
@@ -108,10 +134,8 @@ async function saveProd() {
     price: Number(document.getElementById('prodPrice').value) || 0,
     img: document.getElementById('prodImgUrl').value.trim()
   };
-
   const oldCatId = Number(document.getElementById('editCatId').value);
   const editing = Boolean(document.getElementById('editProdId').value);
-
   if (editing) {
     if (oldCatId && oldCatId !== catId) {
       const oldCat = data.categories.find((c) => c.id === oldCatId);
@@ -125,7 +149,6 @@ async function saveProd() {
   } else {
     cat.products.push(payload);
   }
-
   await persist();
   resetProductForm();
   renderAdmin();
@@ -161,7 +184,7 @@ async function deleteProd(catId, prodId) {
 }
 
 async function deleteCat(catId) {
-  if (!confirm('Удалить категорию и все товары в ней?')) return;
+  if (!confirm('Удалить категорию и все товары?')) return;
   data.categories = data.categories.filter((c) => c.id !== catId);
   await persist();
   renderAdmin();
@@ -180,14 +203,14 @@ function renderAdmin() {
   fillCatSelect();
   const list = document.getElementById('list');
   if (!data.categories.length) {
-    list.innerHTML = '<p class="hint">Категорий нет — сначала добавьте категорию.</p>';
+    list.innerHTML = '<p class="hint">Сначала добавьте категорию.</p>';
     return;
   }
   list.innerHTML = data.categories.map((c) => `
     <div class="cat-block">
       <div class="cat-head">
         <strong>${esc(c.name)}${c.name_uz ? ' / ' + esc(c.name_uz) : ''}</strong>
-        <button class="btn btn-danger mini" data-act="del-cat" data-cat="${c.id}">Удалить</button>
+        <button class="btn-text danger" data-act="del-cat" data-cat="${c.id}" type="button">Удалить категорию</button>
       </div>
       ${c.products.map((p) => `
         <div class="list-item">
@@ -200,13 +223,19 @@ function renderAdmin() {
             </div>
           </div>
           <div class="btn-row">
-            <button class="btn btn-edit mini" data-act="edit" data-cat="${c.id}" data-id="${p.id}">Изменить</button>
-            <button class="btn btn-danger mini" data-act="del" data-cat="${c.id}" data-id="${p.id}">Удалить</button>
+            <button class="btn-text" data-act="edit" data-cat="${c.id}" data-id="${p.id}" type="button">Изменить</button>
+            <button class="btn-text danger" data-act="del" data-cat="${c.id}" data-id="${p.id}" type="button">Удалить</button>
           </div>
         </div>
-      `).join('') || '<p class="hint">В этой категории пока нет товаров.</p>'}
+      `).join('') || '<p class="hint">В категории пока нет товаров.</p>'}
     </div>
   `).join('');
+}
+
+function renderAdminFooter() {
+  const name = data.name || 'KLASS мебель';
+  const year = (data.contacts && data.contacts.foundedYear) || 2024;
+  document.getElementById('adminCopy').textContent = copyrightLine(name, year);
 }
 
 document.getElementById('loginBtn').addEventListener('click', login);
@@ -215,6 +244,7 @@ document.getElementById('pass').addEventListener('keydown', (e) => {
 });
 document.getElementById('logoutBtn').addEventListener('click', () => firebase.auth().signOut());
 document.getElementById('saveNameBtn').addEventListener('click', () => saveName().catch((e) => alert(e.message)));
+document.getElementById('saveContactsBtn').addEventListener('click', () => saveContacts().catch((e) => alert(e.message)));
 document.getElementById('addCatBtn').addEventListener('click', () => addCat().catch((e) => alert(e.message)));
 document.getElementById('saveProdBtn').addEventListener('click', () => saveProd().catch((e) => alert(e.message)));
 document.getElementById('cancelBtn').addEventListener('click', resetProductForm);
@@ -231,6 +261,7 @@ document.getElementById('list').addEventListener('click', (e) => {
 });
 
 async function bootAdmin() {
+  document.getElementById('adminCopy').textContent = copyrightLine('KLASS мебель', 2024);
   if (!initFirebase()) {
     adminStatus.textContent = 'Нет firebase-config.js';
     return;
@@ -238,12 +269,15 @@ async function bootAdmin() {
   firebase.auth().onAuthStateChanged(async (user) => {
     if (!user) {
       showLogin();
+      document.getElementById('adminUser').textContent = '';
       return;
     }
     try {
       data = await loadStore();
       showPanel();
       adminStatus.textContent = 'Вы вошли как ' + user.email;
+      document.getElementById('adminUser').textContent = 'Вы вошли как ' + user.email;
+      renderAdminFooter();
     } catch (err) {
       alert('Не удалось загрузить каталог: ' + err.message);
     }
