@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#6d4c41">
+  <meta name="theme-color" content="#F3F1ED">
   <title>Админка — KLASS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" href="icon-192.png">
 </head>
@@ -12,23 +15,23 @@
   <header class="site-header">
     <div class="brand">
       <h1>Панель управления</h1>
-      <p class="tagline">KLASS мебель</p>
+      <p class="tagline">KLASS</p>
     </div>
     <div class="header-actions">
-      <button class="chip" id="themeBtn" type="button">🌙</button>
+      <button class="chip" id="themeBtn" type="button">☾</button>
       <a class="chip chip-link" href="index.html">← Витрина</a>
     </div>
   </header>
 
   <main class="admin-wrap">
     <section id="login" class="card-form">
-      <h2>Вход в админку</h2>
+      <h2>Вход</h2>
       <label>Email</label>
-      <input type="email" id="email" placeholder="admin@klass.uz" autocomplete="username">
+      <input type="email" id="email" autocomplete="username">
       <label>Пароль</label>
-      <input type="password" id="pass" placeholder="Пароль из Firebase → Users" autocomplete="current-password">
+      <input type="password" id="pass" autocomplete="current-password">
       <button class="btn" id="loginBtn" type="button">Войти</button>
-      <p class="hint">Пользователя создаёте в Firebase Console → Authentication → Users. Storage не нужен: в товар вставляете URL картинки.</p>
+      <p class="hint">Пользователь: Firebase → Authentication → Users. Фото товара — URL со стороннего хостинга.</p>
     </section>
 
     <div id="panel" class="hidden">
@@ -41,7 +44,28 @@
         <input id="newName" placeholder="KLASS мебель">
         <label>Название (узб)</label>
         <input id="newNameUz" placeholder="KLASS mebel">
-        <button class="btn" id="saveNameBtn" type="button">Сохранить название</button>
+        <label>Фото первого экрана (URL)</label>
+        <input id="heroImg" placeholder="https://…/showroom.jpg">
+        <button class="btn" id="saveNameBtn" type="button">Сохранить</button>
+      </section>
+
+      <section class="card-form">
+        <h2>Контакты (шапка и подвал витрины)</h2>
+        <label>Телефон</label>
+        <input id="phone" placeholder="+998 90 123 45 67">
+        <label>Telegram (@имя или ссылка)</label>
+        <input id="telegram" placeholder="@klass_mebel">
+        <label>Адрес (рус)</label>
+        <input id="address" placeholder="Ташкент, Юнусабад">
+        <label>Адрес (узб)</label>
+        <input id="addressUz" placeholder="Toshkent, Yunusobod">
+        <label>График (рус)</label>
+        <input id="hours" placeholder="Пн–Сб 9:00–19:00">
+        <label>График (узб)</label>
+        <input id="hoursUz" placeholder="Du–Sha 9:00–19:00">
+        <label>Год основания (для © 2024–2026)</label>
+        <input id="foundedYear" type="number" min="1990" max="2100" placeholder="2024">
+        <button class="btn" id="saveContactsBtn" type="button">Сохранить контакты</button>
       </section>
 
       <section class="card-form">
@@ -57,30 +81,21 @@
         <h2 id="formTitle">Новый товар</h2>
         <input type="hidden" id="editProdId">
         <input type="hidden" id="editCatId">
-
         <label>Категория</label>
         <select id="catSelect"></select>
-
         <label>Название (рус)</label>
-        <input id="prodNameRu" placeholder="Диван Комфорт">
-
-        <label>Название (узб) — необязательно</label>
-        <input id="prodNameUz" placeholder="Komfort divan">
-
+        <input id="prodNameRu">
+        <label>Название (узб)</label>
+        <input id="prodNameUz">
         <label>Описание (рус)</label>
-        <textarea id="prodDescRu" rows="3" placeholder="Угловой, мягкая ткань"></textarea>
-
-        <label>Описание (узб) — необязательно</label>
-        <textarea id="prodDescUz" rows="3" placeholder="Burchakli, yumshoq mato"></textarea>
-
-        <label>Цена (в сумах)</label>
-        <input id="prodPrice" type="number" min="0" step="1000" placeholder="4590000">
-
+        <textarea id="prodDescRu" rows="3"></textarea>
+        <label>Описание (узб)</label>
+        <textarea id="prodDescUz" rows="3"></textarea>
+        <label>Цена (сумы)</label>
+        <input id="prodPrice" type="number" min="0" step="1000">
         <label>URL картинки</label>
-        <input id="prodImgUrl" placeholder="https://example.com/divan.jpg">
-        <img id="imgPrev" class="img-preview hidden" alt="Превью">
-        <p class="hint">Загрузите фото на любой хостинг и вставьте прямую ссылку, которая открывается как картинка (заканчивается на .jpg / .webp и т.п.).</p>
-
+        <input id="prodImgUrl" placeholder="https://…/divan.jpg">
+        <img id="imgPrev" class="img-preview hidden" alt="">
         <div class="btn-row">
           <button class="btn" id="saveProdBtn" type="button">Добавить товар</button>
           <button class="btn btn-ghost hidden" id="cancelBtn" type="button">Отмена</button>
@@ -89,15 +104,18 @@
 
       <section class="card-form">
         <h2>Резервная копия</h2>
-        <div class="btn-row">
-          <button class="btn" id="exportBtn" type="button">Скачать JSON</button>
-        </div>
+        <button class="btn btn-ghost" id="exportBtn" type="button">Скачать JSON</button>
       </section>
 
-      <h2 class="list-title">Товары и категории</h2>
+      <h2 class="list-title">Товары</h2>
       <div id="list"></div>
     </div>
   </main>
+
+  <footer class="admin-footer">
+    <span id="adminCopy"></span>
+    <span id="adminUser"></span>
+  </footer>
 
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
