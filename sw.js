@@ -1,4 +1,4 @@
-const CACHE = 'klass-v7';
+const CACHE = 'klass-v8';
 const ASSETS = [
   './',
   './index.html',
