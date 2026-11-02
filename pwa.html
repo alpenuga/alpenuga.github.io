@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#6d4c41">
+  <title>Админка — KLASS</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="icon-192.png">
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <h1>Панель управления</h1>
+      <p class="tagline">KLASS мебель</p>
+    </div>
+    <div class="header-actions">
+      <button class="chip" id="themeBtn" type="button">🌙</button>
+      <a class="chip chip-link" href="index.html">← Витрина</a>
+    </div>
+  </header>
+
+  <main class="admin-wrap">
+    <section id="login" class="card-form">
+      <h2>Вход в админку</h2>
+      <label>Email</label>
+      <input type="email" id="email" placeholder="admin@klass.uz" autocomplete="username">
+      <label>Пароль</label>
+      <input type="password" id="pass" placeholder="Пароль из Firebase → Users" autocomplete="current-password">
+      <button class="btn" id="loginBtn" type="button">Войти</button>
+      <p class="hint">Пользователя создаёте в Firebase Console → Authentication → Users. Storage не нужен: в товар вставляете URL картинки.</p>
+    </section>
+
+    <div id="panel" class="hidden">
+      <p class="hint" id="adminStatus"></p>
+      <p><button class="btn btn-ghost" id="logoutBtn" type="button">Выйти</button></p>
+
+      <section class="card-form">
+        <h2>Магазин</h2>
+        <label>Название (рус)</label>
+        <input id="newName" placeholder="KLASS мебель">
+        <label>Название (узб)</label>
+        <input id="newNameUz" placeholder="KLASS mebel">
+        <button class="btn" id="saveNameBtn" type="button">Сохранить название</button>
+      </section>
+
+      <section class="card-form">
+        <h2>Категория</h2>
+        <label>Название (рус)</label>
+        <input id="catName" placeholder="Диваны">
+        <label>Название (узб)</label>
+        <input id="catNameUz" placeholder="Divanlar">
+        <button class="btn" id="addCatBtn" type="button">Добавить категорию</button>
+      </section>
+
+      <section class="card-form">
+        <h2 id="formTitle">Новый товар</h2>
+        <input type="hidden" id="editProdId">
+        <input type="hidden" id="editCatId">
+
+        <label>Категория</label>
+        <select id="catSelect"></select>
+
+        <label>Название (рус)</label>
+        <input id="prodNameRu" placeholder="Диван Комфорт">
+
+        <label>Название (узб) — необязательно</label>
+        <input id="prodNameUz" placeholder="Komfort divan">
+
+        <label>Описание (рус)</label>
+        <textarea id="prodDescRu" rows="3" placeholder="Угловой, мягкая ткань"></textarea>
+
+        <label>Описание (узб) — необязательно</label>
+        <textarea id="prodDescUz" rows="3" placeholder="Burchakli, yumshoq mato"></textarea>
+
+        <label>Цена (в сумах)</label>
+        <input id="prodPrice" type="number" min="0" step="1000" placeholder="4590000">
+
+        <label>URL картинки</label>
+        <input id="prodImgUrl" placeholder="https://example.com/divan.jpg">
+        <img id="imgPrev" class="img-preview hidden" alt="Превью">
+        <p class="hint">Загрузите фото на любой хостинг и вставьте прямую ссылку, которая открывается как картинка (заканчивается на .jpg / .webp и т.п.).</p>
+
+        <div class="btn-row">
+          <button class="btn" id="saveProdBtn" type="button">Добавить товар</button>
+          <button class="btn btn-ghost hidden" id="cancelBtn" type="button">Отмена</button>
+        </div>
+      </section>
+
+      <section class="card-form">
+        <h2>Резервная копия</h2>
+        <div class="btn-row">
+          <button class="btn" id="exportBtn" type="button">Скачать JSON</button>
+        </div>
+      </section>
+
+      <h2 class="list-title">Товары и категории</h2>
+      <div id="list"></div>
+    </div>
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="store.js"></script>
+  <script src="pwa.js"></script>
+</body>
+</html>
