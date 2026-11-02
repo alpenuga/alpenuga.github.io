@@ -234,13 +234,73 @@ h1, h2, .hero-content h2, .card h3, .modal h2, .list-title {
 .site-footer {
   background: var(--footer);
   border-top: 1px solid var(--line);
-  padding: 2rem 1.5rem 1.4rem;
+  padding: 2.2rem 8vw 1.6rem;
   color: var(--text);
 }
-.site-footer h3 { font-size: 1.3rem; margin-bottom: 0.6rem; }
-.footer-meta { color: var(--muted); font-size: 0.92rem; margin: 0.2rem 0; }
-.footer-note { margin-top: 0.8rem; color: var(--walnut); font-size: 0.9rem; }
+.site-footer h3 { font-size: 1.3rem; margin-bottom: 1.1rem; }
+.footer-cols {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2.5rem;
+  margin: 0 0 1rem;
+}
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  min-width: 0;
+}
+.footer-col-right {
+  align-items: flex-end;
+  text-align: right;
+}
+.footer-item {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.95rem;
+  line-height: 1.35;
+}
+.footer-item:hover { color: var(--text); }
+.footer-col-right .footer-item { justify-content: flex-end; }
+.ico {
+  display: inline-flex;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+.ico svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--walnut);
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.chip-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.card-actions a, .modal .btn-row a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.footer-note { margin-top: 0.5rem; color: var(--walnut); font-size: 0.9rem; }
 .footer-copy { margin-top: 1.2rem; font-size: 0.82rem; color: var(--muted); }
+
+@media (max-width: 700px) {
+  .site-footer { padding: 1.8rem 1.4rem 1.4rem; }
+  .footer-cols { flex-direction: column; gap: 1.15rem; }
+  .footer-col-right { align-items: flex-start; text-align: left; }
+  .footer-col-right .footer-item { justify-content: flex-start; }
+}
 
 .admin-wrap { max-width: 800px; margin: 0 auto; padding: 1.3rem 1rem 4rem; }
 .card-form {
