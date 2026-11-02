@@ -3,34 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#6d4c41">
+  <meta name="theme-color" content="#F3F1ED">
   <title>KLASS мебель</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css">
   <link rel="icon" href="icon-192.png">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header class="site-header">
     <div class="brand">
       <h1 id="storeName">KLASS мебель</h1>
-      <p class="tagline" id="tagline">Мебель для дома</p>
+      <p class="tagline" id="tagline">мебель</p>
     </div>
     <div class="header-actions">
-      <button class="chip" id="themeBtn" type="button">🌙</button>
       <button class="chip" id="langBtn" type="button">Oʻz</button>
-      <a class="chip chip-link" href="pwa.html" id="adminLink">Админка</a>
+      <button class="chip" id="themeBtn" type="button" aria-label="Тема">☾</button>
+      <a class="chip chip-link hidden" id="headerPhone" href="#"></a>
     </div>
   </header>
 
-  <div class="toolbar">
+  <section class="hero" id="hero">
+    <div class="hero-media" id="heroMedia"></div>
+    <div class="hero-content">
+      <p class="hero-kicker" id="heroKicker">мебель</p>
+      <h2 id="heroTitle">KLASS мебель</h2>
+      <a class="btn" href="#catalog" id="heroCta">Смотреть каталог</a>
+    </div>
+  </section>
+
+  <div class="toolbar" id="catalog">
     <nav id="cats" class="cats"></nav>
-    <input id="search" class="search" type="search" placeholder="Поиск…">
+    <div class="filters">
+      <input id="search" class="search" type="search" placeholder="Поиск…">
+      <select id="sort" class="filter-control">
+        <option value="new">Новые</option>
+        <option value="cheap">Сначала дешёвые</option>
+        <option value="expensive">Сначала дорогие</option>
+      </select>
+      <input id="priceMin" class="filter-control" type="number" min="0" placeholder="от">
+      <input id="priceMax" class="filter-control" type="number" min="0" placeholder="до">
+    </div>
   </div>
 
   <main class="container">
     <p id="status" class="hint"></p>
     <div class="grid" id="products"></div>
   </main>
+
+  <footer class="site-footer" id="footer"></footer>
+
+  <div class="modal-back hidden" id="modalBack">
+    <div class="modal" role="dialog" aria-modal="true">
+      <button class="modal-close" id="modalClose" type="button">×</button>
+      <img id="modalImg" alt="">
+      <div class="modal-body">
+        <h2 id="modalTitle"></h2>
+        <p id="modalDesc"></p>
+        <div class="price" id="modalPrice"></div>
+        <div class="btn-row" id="modalActions"></div>
+      </div>
+    </div>
+  </div>
 
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
