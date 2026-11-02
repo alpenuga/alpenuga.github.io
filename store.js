@@ -5,30 +5,60 @@ const LANG_KEY = 'klassLang';
 const I18N = {
   ru: {
     all: 'Все',
-    admin: 'Админка',
     search: 'Поиск…',
-    empty: 'Товаров пока нет.',
-    tagline: 'Мебель для дома',
+    empty: 'Скоро появятся товары',
+    tagline: 'мебель',
     currency: 'сўм',
     loading: 'Загрузка каталога…',
-    offline: 'Нет Firebase, показан локальный кэш.'
+    offline: 'Нет связи с Firebase, показан локальный кэш.',
+    catalog: 'Смотреть каталог',
+    write: 'Написать',
+    call: 'Звонок',
+    prices: 'Цены уточняйте',
+    sortNew: 'Новые',
+    sortCheap: 'Сначала дешёвые',
+    sortExp: 'Сначала дорогие',
+    priceFrom: 'от',
+    priceTo: 'до'
   },
   uz: {
     all: 'Barchasi',
-    admin: 'Admin',
     search: 'Qidiruv…',
-    empty: 'Hozircha mahsulot yoʻq.',
-    tagline: 'Uy uchun mebel',
+    empty: 'Tez orada mahsulotlar paydo boʻladi',
+    tagline: 'mebel',
     currency: 'soʻm',
     loading: 'Katalog yuklanmoqda…',
-    offline: 'Firebase yoʻq, mahalliy nusxa koʻrsatildi.'
+    offline: 'Firebase yoʻq, mahalliy nusxa koʻrsatildi.',
+    catalog: 'Katalogni koʻrish',
+    write: 'Yozish',
+    call: 'Qoʻngʻiroq',
+    prices: 'Narxlarni aniqlashtiring',
+    sortNew: 'Yangi',
+    sortCheap: 'Avval arzon',
+    sortExp: 'Avval qimmat',
+    priceFrom: 'dan',
+    priceTo: 'gacha'
   }
 };
+
+function defaultContacts() {
+  return {
+    phone: '',
+    telegram: '',
+    address: '',
+    address_uz: '',
+    hours: '',
+    hours_uz: '',
+    foundedYear: 2024,
+    heroImg: ''
+  };
+}
 
 function defaultData() {
   return {
     name: 'KLASS мебель',
     name_uz: 'KLASS mebel',
+    contacts: defaultContacts(),
     categories: []
   };
 }
@@ -38,8 +68,10 @@ function normalize(raw) {
   const data = {
     name: raw.name || 'KLASS мебель',
     name_uz: raw.name_uz || raw.name || 'KLASS mebel',
+    contacts: { ...defaultContacts(), ...(raw.contacts || {}) },
     categories: Array.isArray(raw.categories) ? raw.categories : []
   };
+  data.contacts.foundedYear = Number(data.contacts.foundedYear) || 2024;
   data.categories.forEach((c) => {
     c.id = Number(c.id) || Date.now();
     c.name = c.name || '';
@@ -63,7 +95,6 @@ function normalize(raw) {
 function firebaseReady() {
   return typeof firebase !== 'undefined'
     && typeof firebaseConfig === 'object'
-    && firebaseConfig.apiKey
     && firebaseConfig.projectId === 'klass-db84f';
 }
 
@@ -113,7 +144,9 @@ function applyTheme() {
   const theme = localStorage.getItem(THEME_KEY) || 'light';
   document.body.setAttribute('data-theme', theme);
   const btn = document.getElementById('themeBtn');
-  if (btn) btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+  if (btn) btn.textContent = theme === 'dark' ? '☀' : '☾';
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.setAttribute('content', theme === 'dark' ? '#2A3545' : '#F3F1ED');
 }
 
 function toggleTheme() {
@@ -132,6 +165,26 @@ function setLang(lang) {
 
 function pick(lang, ru, uz) {
   return lang === 'uz' && uz ? uz : ru;
+}
+
+function telegramUrl(value) {
+  const v = (value || '').trim();
+  if (!v) return '';
+  if (/^https?:\/\//i.test(v)) return v;
+  return 'https://t.me/' + v.replace(/^@/, '');
+}
+
+function phoneHref(value) {
+  const v = (value || '').trim();
+  if (!v) return '';
+  return 'tel:' + v.replace(/[^\d+]/g, '');
+}
+
+function copyrightLine(name, founded) {
+  const now = new Date().getFullYear();
+  const start = Number(founded) || now;
+  const range = start < now ? `${start}–${now}` : String(now);
+  return `© ${range} ${name}`;
 }
 
 document.addEventListener('click', (e) => {
